@@ -32,6 +32,7 @@ class Quadrotor():
         self.update_pose(x, y, z, roll, pitch, yaw)
 
     def update_pose(self, x, y, z, roll, pitch, yaw):
+        """This method updates the quadrotor's position and orientation in space."""
         self.x = x
         self.y = y
         self.z = z
@@ -46,6 +47,9 @@ class Quadrotor():
             self.plot()
 
     def transformation_matrix(self):
+        """This method generates a 4x4 transformation matrix to describe the quadrotor's position
+            and orientation in the global (world) coordinate system.
+        """
         x = self.x
         y = self.y
         z = self.z

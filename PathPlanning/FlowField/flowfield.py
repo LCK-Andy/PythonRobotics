@@ -129,11 +129,20 @@ class FlowField:
     def follow_vectors(self):
         curr_x, curr_y = self.start_pt
         while curr_x is not None and curr_y is not None:
-            curr_x, curr_y = self.vector_field[(curr_x, curr_y)]
+            # Check if the current position is the goal
+            if [curr_x, curr_y] == self.goal_pt:
+                print("Goal reached!")
+                break
 
+            # Get the next position from the vector field
+            next_x, next_y = self.vector_field[(curr_x, curr_y)]
+
+            # Plot the current position
             if show_animation:
                 plt.plot(curr_x, curr_y, "b*")
                 plt.pause(0.001)
+
+            curr_x, curr_y = next_x, next_y
 
         if show_animation:
             plt.show()

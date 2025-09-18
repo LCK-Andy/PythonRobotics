@@ -173,18 +173,46 @@ def draw_clothoids(start, goal, num_steps, clothoidal_paths,
 
 
 def main():
-    start_point = Point(0, 0)
-    start_orientation_list = [pi/3]
-    goal_point = Point(10, 10)
-    goal_orientation_list = [-pi/4]
+    # Define a list of waypoints (positions) and orientations
+    waypoints = [
+        Point(0, 0),  # Start point
+        Point(5, 2),  # Intermediate point
+        Point(10, 5), # Intermediate point
+        Point(15, 10) # Goal point
+    ]
+    
+    # Define orientations (yaw angles in radians) at each waypoint
+    orientations = [
+        pi / 6,  # Orientation at the start point
+        pi / 8,  # Orientation at the first intermediate point
+        -pi / 8, # Orientation at the second intermediate point
+        -pi / 4  # Orientation at the goal point
+    ]
+    
+    # Number of path points between each pair of waypoints
     num_path_points = 100
-    clothoid_paths = generate_clothoid_paths(
-        start_point, start_orientation_list,
-        goal_point, goal_orientation_list,
-        num_path_points)
+    
+    # Generate clothoid paths for consecutive waypoints
+    all_clothoid_paths = []
+    for i in range(len(waypoints) - 1):
+        start_point = waypoints[i]
+        goal_point = waypoints[i + 1]
+        start_orientation = [orientations[i]]
+        goal_orientation = [orientations[i + 1]]
+
+        # Generate clothoid path for the current segment
+        segment_clothoid_paths = generate_clothoid_paths(
+            start_point, start_orientation,
+            goal_point, goal_orientation,
+            num_path_points
+        )
+        # Add the generated segment to the overall path
+        all_clothoid_paths.extend(segment_clothoid_paths)
+
+    # Visualize the generated clothoid paths
     if show_animation:
-        draw_clothoids(start_point, goal_point,
-                       num_path_points, clothoid_paths,
+        draw_clothoids(waypoints[0], waypoints[-1],
+                       num_path_points, all_clothoid_paths,
                        save_animation=False)
 
 

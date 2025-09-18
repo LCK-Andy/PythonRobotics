@@ -125,12 +125,12 @@ def plot_arrow(x, y, yaw, length=1.0, width=0.5, fc="r", ec="k"):  # pragma: no 
 def main():
     """Plot an example bezier curve."""
     start_x = 10.0  # [m]
-    start_y = 1.0  # [m]
+    start_y = 2.0  # [m]
     start_yaw = np.radians(180.0)  # [rad]
 
     end_x = -0.0  # [m]
-    end_y = -3.0  # [m]
-    end_yaw = np.radians(-45.0)  # [rad]
+    end_y = -5.0  # [m]
+    end_yaw = np.radians(-75.0)  # [rad]
     offset = 3.0
 
     path, control_points = calc_4points_bezier_path(
